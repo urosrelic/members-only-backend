@@ -1,6 +1,4 @@
 $kind: http-request
-url: localhost:3000/users?id=1
+url: localhost:3000/users/1
 method: GET
-queryParams:
-  id: "1"
 order: 4166917702190522

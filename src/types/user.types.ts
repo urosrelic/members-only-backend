@@ -1,4 +1,4 @@
-export interface CreateUserRequestBody {
+export interface CreateUserRequest {
   firstName: string;
   lastName: string;
   email: string;
@@ -6,7 +6,7 @@ export interface CreateUserRequestBody {
   profile_picture: string;
 }
 
-export interface UserLoginBody {
+export interface UserLoginRequest {
   email: string;
   password: string;
 }

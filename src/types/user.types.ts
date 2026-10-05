@@ -10,3 +10,13 @@ export interface UserLoginRequest {
   email: string;
   password: string;
 }
+
+export interface AuthUser {
+  id: number;
+  email: string;
+  user_roles: {
+    role: {
+      name: string;
+    }
+  }[]
+}

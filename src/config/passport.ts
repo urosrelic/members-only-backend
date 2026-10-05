@@ -1,6 +1,6 @@
-import { PassportStatic } from 'passport';
-import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
-import { prisma } from './prisma';
+import { PassportStatic } from "passport";
+import { ExtractJwt, Strategy as JwtStrategy } from "passport-jwt";
+import { prisma } from "./prisma";
 
 const opts = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -15,14 +15,24 @@ export default (passport: PassportStatic) => {
           where: {
             id: payload.id,
           },
-          include: {
+          select: {
+            id: true,
+            first_name: true,
+            last_name: true,
+            email: true,
             user_roles: {
-              include: {
-                role: true,
+              select: {
+                role: {
+                  select: {
+                    name: true,
+                  },
+                },
               },
             },
           },
         });
+
+        console.log(user);
 
         if (!user) {
           return done(null, false);

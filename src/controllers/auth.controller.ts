@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { UserLoginRequest } from '../types/user.types';
-import { prisma } from '../../lib/prisma';
+import { prisma } from '../config/prisma';
 import * as bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 

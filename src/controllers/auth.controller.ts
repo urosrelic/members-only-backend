@@ -1,23 +1,23 @@
 import { Request, Response, NextFunction } from 'express';
-import { UserLoginBody } from '../types/user.types';
+import { UserLoginRequest } from '../types/user.types';
 import { prisma } from '../../lib/prisma';
 import * as bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 async function login(
-  req: Request<UserLoginBody>,
+  req: Request<UserLoginRequest>,
   res: Response,
   next: NextFunction,
 ) {
-  const { email, password } = req.body;
+  const data: UserLoginRequest = req.body;
   try {
-    const user = await prisma.user.findFirst({ where: { email: email } });
+    const user = await prisma.user.findFirst({ where: { email: data.email } });
 
     if (!user) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(data.password, user.password);
 
     if (!isMatch) {
       return res.status(401).json({ message: 'Invalid credentials' });

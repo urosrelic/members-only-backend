@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { prisma } from '../../lib/prisma';
-import { CreateUserRequestBody } from '../types/user.types';
+import { CreateUserRequest } from '../types/user.types';
+import * as bcrypt from 'bcrypt';
 
 async function getAllUsers(req: Request, res: Response, next: NextFunction) {
   try {
@@ -16,8 +17,9 @@ async function getUserById(
   res: Response,
   next: NextFunction,
 ) {
+  const id = req.params.id;
   try {
-    const userIdInt = parseInt(req.params.id);
+    const userIdInt = parseInt(id);
 
     if (!userIdInt) {
       return res.status(400).json({ message: 'User ID is required' });
@@ -36,19 +38,40 @@ async function getUserById(
 }
 
 async function createUser(
-  req: Request<CreateUserRequestBody>,
+  req: Request<{}, {}, CreateUserRequest>,
   res: Response,
   next: NextFunction,
 ) {
   const data = req.body;
+
   try {
+    const existingUser = await prisma.user.findUnique({
+      where: { email: data.email },
+    });
+
+    if (existingUser) {
+      return res.status(409).json({ message: 'User already exists' });
+    }
+
+    const hashedPassword = await bcrypt.hash(data.password, 10);
+
     const newUser = await prisma.user.create({
       data: {
         first_name: data.firstName,
-        last_name: data.last_name,
+        last_name: data.lastName,
         email: data.email,
-        password: data.password,
+        password: hashedPassword,
         profile_picture: data.profile_picture,
+
+        user_roles: {
+          create: {
+            role: {
+              connect: {
+                name: 'USER',
+              },
+            },
+          },
+        },
       },
     });
 

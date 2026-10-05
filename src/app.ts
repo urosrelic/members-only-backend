@@ -3,6 +3,7 @@ import 'dotenv/config';
 import { globalErrorHandler } from './middleware/error.middleware';
 import userRoutes from './routes/user.routes';
 import authRoutes from './routes/auth.routes';
+import roleRoutes from './routes/role.routes';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -19,6 +20,7 @@ app.get('/health-check', (req: Request, res: Response) => {
 
 app.use('/users', userRoutes);
 app.use('/auth', authRoutes);
+app.use('/roles', roleRoutes);
 
 app.use(globalErrorHandler);
 

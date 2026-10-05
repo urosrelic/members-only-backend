@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { prisma } from '../../lib/prisma';
+import { prisma } from '../config/prisma';
 
 async function getAllRoles(req: Request, res: Response, next: NextFunction) {
   try {

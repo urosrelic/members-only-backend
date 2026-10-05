@@ -2,6 +2,10 @@ import express, { Application, Request, Response } from 'express';
 import 'dotenv/config';
 import { globalErrorHandler } from './middleware/error.middleware';
 import userRoutes from './routes/user.routes';
+import authRoutes from './routes/auth.routes';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app: Application = express();
 const PORT = process.env.PORT;
@@ -14,6 +18,7 @@ app.get('/health-check', (req: Request, res: Response) => {
 });
 
 app.use('/users', userRoutes);
+app.use('/auth', authRoutes);
 
 app.use(globalErrorHandler);
 

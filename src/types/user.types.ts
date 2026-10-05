@@ -5,3 +5,8 @@ export interface CreateUserRequestBody {
   password: string;
   profile_picture: string;
 }
+
+export interface UserLoginBody {
+  email: string;
+  password: string;
+}

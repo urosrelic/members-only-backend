@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { prisma } from '../../lib/prisma';
+import { CreateUserRequestBody } from '../types/user.types';
 
 async function getAllUsers(req: Request, res: Response, next: NextFunction) {
   try {
@@ -34,4 +35,29 @@ async function getUserById(
   }
 }
 
-export { getAllUsers, getUserById };
+async function createUser(
+  req: Request<CreateUserRequestBody>,
+  res: Response,
+  next: NextFunction,
+) {
+  const data = req.body;
+  try {
+    const newUser = await prisma.user.create({
+      data: {
+        first_name: data.firstName,
+        last_name: data.last_name,
+        email: data.email,
+        password: data.password,
+        profile_picture: data.profile_picture,
+      },
+    });
+
+    res
+      .status(200)
+      .json({ message: 'User created successfully', user: newUser });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export { getAllUsers, getUserById, createUser };

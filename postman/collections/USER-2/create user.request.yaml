@@ -1,0 +1,14 @@
+$kind: http-request
+url: localhost:3000/users
+method: POST
+body:
+  type: json
+  content: |-
+    {
+      "firstName": "Uros",
+      "lastName": "Relic",
+      "email": "urosrelicc@gmail.com",
+      "password": "pass123",
+      "profile_picture": "url-to-some-page"
+    }
+order: 4382764622117905

@@ -1,0 +1,4 @@
+$kind: http-request
+url: localhost:3000/clubhouse
+method: GET
+order: 1015456201319993

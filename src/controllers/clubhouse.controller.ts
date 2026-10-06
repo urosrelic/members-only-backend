@@ -1,5 +1,34 @@
-import { Request, Response, NextFunction } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { prisma } from '../config/prisma';
+
+async function getAllClubhouses(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  try {
+    const searchQuery = req.query.search;
+
+    if (searchQuery) {
+      const clubhouseQueryResult = await prisma.clubhouse.findMany({
+        where: {
+          name: {
+            contains: searchQuery as string,
+            mode: 'insensitive',
+          },
+        },
+      });
+
+      return res.status(200).json(clubhouseQueryResult);
+    }
+
+    const clubhouses = await prisma.clubhouse.findMany();
+
+    res.status(200).json(clubhouses);
+  } catch (error) {
+    next(error);
+  }
+}
 
 async function createClubhouse(
   req: Request<{}, {}, { name: string }>,
@@ -35,4 +64,4 @@ async function createClubhouse(
   }
 }
 
-export { createClubhouse };
+export { createClubhouse, getAllClubhouses };

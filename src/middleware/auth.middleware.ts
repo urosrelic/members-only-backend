@@ -1,9 +1,9 @@
-import { NextFunction, Request, Response } from "express";
-import passport from "passport";
+import { NextFunction, Request, Response } from 'express';
+import passport from 'passport';
 
 export function authenticate(req: Request, res: Response, next: NextFunction) {
   passport.authenticate(
-    "jwt",
+    'jwt',
     { session: false },
     (err: any, user: Express.User | undefined, info: any) => {
       if (err) {
@@ -12,7 +12,7 @@ export function authenticate(req: Request, res: Response, next: NextFunction) {
 
       if (!user) {
         return res.status(401).json({
-          message: "Unauthenticated.",
+          message: 'Unauthenticated.',
         });
       }
 
@@ -30,15 +30,13 @@ export function authorize(roleName: string) {
       (userRole) => userRole.role.name === roleName,
     );
 
-    console.log("Has role:", hasRole);
+    console.log('Has role:', hasRole);
 
     if (!hasRole) {
       return res.status(403).json({
-        message: "Forbidden",
+        message: 'Forbidden',
       });
     }
-
-    console.log("Authorization successful");
 
     next();
   };

@@ -3,7 +3,7 @@ export interface CreateUserRequest {
   lastName: string;
   email: string;
   password: string;
-  profile_picture?: string;
+  profile_picture?: string | null;
 }
 
 export interface UserLoginRequest {

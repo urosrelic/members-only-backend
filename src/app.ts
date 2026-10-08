@@ -9,6 +9,7 @@ import clubhouseRoutes from './routes/clubhouse.routes';
 import dotenv from 'dotenv';
 
 import configurePassport from './config/passport';
+import postRoutes from './routes/post.routes';
 
 dotenv.config();
 
@@ -30,6 +31,7 @@ app.use('/users', userRoutes);
 app.use('/auth', authRoutes);
 app.use('/roles', roleRoutes);
 app.use('/clubhouse', clubhouseRoutes);
+app.use('/posts', postRoutes);
 
 app.use(globalErrorHandler);
 

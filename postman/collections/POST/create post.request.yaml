@@ -1,0 +1,13 @@
+$kind: http-request
+url: localhost:3000/posts
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "postText": "Some dummy text",
+        "clubhouseId": 1
+    }
+auth:
+  type: bearer
+order: 287426442681198

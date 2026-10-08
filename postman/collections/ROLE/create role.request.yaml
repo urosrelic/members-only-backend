@@ -5,7 +5,6 @@ body:
   type: json
   content: |-
     {
-        "name": "USER",
-        "admin": "ADMIN"
+        "name": "USER"
     }
 order: 1791233971851

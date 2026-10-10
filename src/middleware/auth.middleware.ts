@@ -30,8 +30,6 @@ export function authorize(roleName: string) {
       (userRole) => userRole.role.name === roleName,
     );
 
-    console.log('Has role:', hasRole);
-
     if (!hasRole) {
       return res.status(403).json({
         message: 'Forbidden',

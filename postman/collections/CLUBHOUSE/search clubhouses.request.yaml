@@ -1,6 +1,0 @@
-$kind: http-request
-url: localhost:3000/clubhouse?search=uros
-method: GET
-queryParams:
-  search: uros
-order: 2862594614990853

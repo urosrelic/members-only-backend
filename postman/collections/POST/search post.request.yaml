@@ -1,6 +1,0 @@
-$kind: http-request
-url: localhost:3000/posts?search=aaa
-method: GET
-queryParams:
-  search: aaa
-order: 57194893096253

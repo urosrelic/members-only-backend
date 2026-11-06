@@ -1,0 +1,17 @@
+meta {
+  name: create role
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/roles
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "USER"
+  }
+}

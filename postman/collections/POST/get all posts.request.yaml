@@ -1,4 +1,0 @@
-$kind: http-request
-url: localhost:3000/posts
-method: GET
-order: 1791416697981

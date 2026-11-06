@@ -1,0 +1,21 @@
+meta {
+  name: create clubhouse
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/clubhouse
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "name": "WEEE"
+  }
+}

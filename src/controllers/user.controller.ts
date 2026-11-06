@@ -19,13 +19,12 @@ async function getUserById(
 ) {
   const id = req.params.id;
   try {
-    const userIdInt = parseInt(id);
 
-    if (!userIdInt) {
+    if (!id) {
       return res.status(400).json({ message: 'User ID is required' });
     }
 
-    const user = await prisma.user.findUnique({ where: { id: userIdInt } });
+    const user = await prisma.user.findUnique({ where: { id: id } });
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' });

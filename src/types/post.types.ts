@@ -1,5 +1,5 @@
 export interface CreatePostRequest {
   postText: string;
-  userId: number;
-  clubhouseId: number;
+  userId: string;
+  clubhouseId: string;
 }

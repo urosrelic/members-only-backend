@@ -60,6 +60,7 @@ async function createUser(
         first_name: data.firstName,
         last_name: data.lastName,
         email: data.email,
+        username: data.username,
         password: hashedPassword,
         profile_picture: data.profile_picture,
 

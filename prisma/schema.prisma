@@ -60,6 +60,7 @@ model user {
   first_name       String             @db.VarChar(255)
   last_name        String             @db.VarChar(255)
   email            String             @unique @db.VarChar(255)
+  username         String             @unique @db.VarChar(255)
   password         String
   profile_picture  String?
   clubhouse        clubhouse[]

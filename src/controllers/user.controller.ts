@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { prisma } from '../config/prisma';
 import { CreateUserRequest } from '../types/user.types';
 import * as bcrypt from 'bcrypt';
+import { AppError } from '../errors/AppError';
 
 async function getAllUsers(req: Request, res: Response, next: NextFunction) {
   try {
@@ -19,13 +20,12 @@ async function getUserById(
 ) {
   const id = req.params.id;
   try {
-    const userIdInt = parseInt(id);
 
-    if (!userIdInt) {
+    if (!id) {
       return res.status(400).json({ message: 'User ID is required' });
     }
 
-    const user = await prisma.user.findUnique({ where: { id: userIdInt } });
+    const user = await prisma.user.findUnique({ where: { id: id } });
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
@@ -44,12 +44,20 @@ async function createUser(
 ) {
   const data = req.body;
 
+  if (!data.username || data.username.length > 255) {
+    throw new AppError('Username is required (max 255 characters)', 400);
+  }
+
   try {
-    const existingUser = await prisma.user.findUnique({
+    const existingEmail = await prisma.user.findUnique({
       where: { email: data.email },
     });
 
-    if (existingUser) {
+    const existingUsername = await prisma.user.findUnique({
+      where: { username: data.username },
+    });
+
+    if (existingEmail || existingUsername) {
       return res.status(409).json({ message: 'User already exists' });
     }
 
@@ -60,6 +68,7 @@ async function createUser(
         first_name: data.firstName,
         last_name: data.lastName,
         email: data.email,
+        username: data.username,
         password: hashedPassword,
         profile_picture: data.profile_picture,
 

@@ -13,7 +13,7 @@ export interface UserLoginRequest {
 }
 
 export interface AuthUser {
-  id: number;
+  id: string;
   email: string;
   user_roles: {
     role: {
